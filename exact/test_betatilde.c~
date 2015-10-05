@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <float.h>
+
+int g_ngridBeta;
+double* g_grid01;
+
+double betatilde( double a, double b, double n ) {
+  /* Computes ~Beta( a, b, n ) by numerical integration.
+     a, b parameters
+     g_grid01 = uniform grid on [0, 1] of g_ngridBeta intervals
+
+     It follows that grid[ 0 ] = 0, grid[ ngrid ] = 1 and value at 1 is
+     added outside the loop. The integrand = 0 at 0, = 1/(n+1)^(b-1) at 1
+  */
+  double bt = 0;  /* this accumulates the ~Beta value */
+  int i;
+  for( i = 1; i < g_ngridBeta; ++i ) {
+    double x = g_grid01[ i ];
+    double p2 = pow(1-x,b-1);
+    double p1 = pow(x,a-1);
+    double p3 = pow((1-pow(x,n+1)),b-1);
+    bt += p1*(p2/p3);
+  }
+  bt += pow(n+1,-b+1)/2.;  /* includes extremities /2, trapeze method */
+  bt *= g_grid01[ 1 ];
+  return( bt );
+}
+
+main( int argc, char* argv[] ) {
+  
+  if( argc == 1 ) {
+    printf( "Usage\n  test_betatilde n grid01 amax bmax  \n amax > 1, bmax>= 3, recommended amax < 3 bmax\n" );
+    exit(1);
+  }
+  int n = atoi( argv[ 1 ] );
+  int ngrid01 = atoi( argv[ 2 ] );
+  int iamax = atoi( argv[ 3 ] );
+  int ibmax = atoi( argv[ 4 ] );
+
+  int ia;
+  int ib;
+  double dn = (double)n;
+  g_ngridBeta = ngrid01;
+  int i;
+  g_grid01 = (double *)malloc( ngrid01*sizeof( double ));
+  for( i = 0; i < ngrid01+2; i++ ) 
+    g_grid01[ i ] = (double)i/ngrid01;
+
+  for( ib = 3; ib <= ibmax; ib++ ) {
+    double b = (double)ib;
+    for( ia = 1; ia <= iamax; ia++ ) {
+      double a = (double)ia;
+      double xx = betatilde( a, b, dn );
+      printf( "%f\t", xx );
+    }
+    printf( "\n" );
+  }
+}

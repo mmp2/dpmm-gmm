@@ -1,0 +1,28 @@
+#include "mex.h"
+#include "matrix.h"
+#include <limits.h>
+#include <float.h>
+
+
+/* todo's: call only when a large, b small
+           inline?
+*/
+double betatilde( double a, double b, double n ) {
+  /* Computes ~Beta( a, b, n ) by numerical integration.
+     a, b parameters
+     g_grid01 = uniform grid on [0, 1] of g_ngridBeta intervals
+
+     It follows that grid[ 0 ] = 0, grid[ ngrid ] = 1 and value at 1 is
+     added outside the loop. The integrand = 0 at 0, = 1/(n+1)^(b-1) at 1
+  */
+  double bt = 0;  /* this accumulates the ~Beta value */
+  int i;
+  for( i = 1; i < g_ngridBeta; ++i ) {
+    double x = g_grid01[ i ]; 
+    bt += pow(x,a-1)*(pow(1-x,b-1)/pow((1-pow(x,n+1)),b-1));
+  }
+  bt += pow(n+1,-b+1)/2.;  /* includes extremities /2, trapeze method */
+  bt *= g_grid01[ 1 ];     
+  /* this is g_grid01[ 1 ]-g_grid01[ 0 ], since the second term is 0 */
+  return( bt );
+}

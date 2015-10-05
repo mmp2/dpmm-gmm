@@ -1,0 +1,53 @@
+% USED BY test_dpmm_gendata
+% artificial data for comparisons between dpmm, ebms, prKDE
+%
+% N = N0*K;
+% l = l0*ones(1,t);
+% thetapri = thetapri0*ones(1, n-1);
+
+% Generic params
+
+isplot = 1
+
+foutname = 'temp_files/junk'
+
+% Data parameters
+
+t = 5
+n = 12
+K = 3
+N0 = 10 
+
+Ntrunc = 3000
+
+whatdata = 'many_from_prior'
+
+% many_from_prior parameters
+% the central permutations in the mixture will be generated from this prior
+
+  npri = 100
+  thetapri0 = 0.3
+  tpri = 8
+  nupri = 1
+
+% Prior parameters
+
+r_0 = 0.7
+nu = 1
+alpha = 4
+
+% Monte Carlo parameters 
+		
+initclusters = 2   % 0=make each a singleton cluster   
+
+thet0 = 1   	   % initial theta
+
+niter = 20
+rho_gibbs = 10
+
+thinning = 1
+
+% Plotting parameters
+
+fontsize = 20
+
