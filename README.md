@@ -1,9 +1,13 @@
+# dpmm-gmm
+Dirichlet Process Mixtures for Generalized Mallows Models
 Efficient C/Matlab MCMC sampling for Dirichlet Process Mixtures of
-Generalized Mallows Models described in 
+Generalized Mallows Models described in
 
 Marina Meila and Harr Chen
-Bayesian non-parametric clustering of ranking data
+"Bayesian non-parametric clustering of ranking data"
 IEEE-TPAMI, to appear 2015
+
+Please cite the paper if you are using this code.
 
 Authors: Harr Chen harr@gmail.com
 	 Marina Meila mmp@stat.washington.edu
@@ -12,6 +16,7 @@ Generalities
 ============
 v4/     the Slice-Gibbs and Beta-Gibbs sampler
 exact/  the Exact-Beta-Gibbs sampler
+
 
 Beta-Gibbs is fast and exact for top-t rankings where t < n-10,
 	    n being the length of a complete permutation
@@ -41,6 +46,7 @@ Set up
 
 mex -largeArrayDims sample_model.c
 mex -largeArrayDims compute_pi_R.c
+
 
 for exact replace sample_model.c with sample_model_t0.c
 
@@ -76,5 +82,4 @@ consequences yet. If g_S[ idx+i ] is defined and 0 for the extra ranks, nothing 
 v4
 -----------------
 Bug report by mmp: sample_model.c, around line 400, where *randLengthValue is calculated. I think that for BETA_SLICE g_sigma_gibbs should be g_rho_slices
-
 
