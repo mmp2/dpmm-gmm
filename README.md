@@ -29,16 +29,15 @@ is an exact sampler for the cases when Beta-Gibbs is not,
 		 when the parameter t0 is large enough. Experimentally,
 		 we found t0 = 11 to be sufficient.
 		 
-It is much slower than Beta-Gibbs, sometimes even slower 
+Exact-Beta-Gibbs is much slower than Beta-Gibbs, sometimes even slower 
 		 than Slice-Gibbs. This is measured per iteration. But mixing
 		 is much better than for Slice-Gibbs, so it should require 
 		 fewer iterations.
 
 Slice-Gibbs    
 ===========
-	exact, slower in time per iteration, slower mixing. Not really
+is exact, slower in time per iteration, slower mixing. Not really
 		recommended in any situation.
-
 		Was introduced as the "straw-man" for the other two.
 
 
@@ -48,20 +47,20 @@ Set up
 
 2. compile
 
-   mex -largeArrayDims sample_model.c
-   mex -largeArrayDims compute_pi_R.c
+   	mex -largeArrayDims sample_model.c
+   	mex -largeArrayDims compute_pi_R.c
 
 
 for exact replace sample_model.c with sample_model_t0.c
 
 To eke a bit more performance do:
 
-   mex -largeArrayDims -v CFLAGS='$CFLAGS -O4 -mtune=native -march=native -pipe -ffast-math -mfpmath=sse -msse4 -m64 -ansi -D_GNU_SOURCE -fexceptions -fPIC -fno-omit-frame-pointer -pthread' sample_model.c
+   	mex -largeArrayDims -v CFLAGS='$CFLAGS -O4 -mtune=native -march=native -pipe -ffast-math -mfpmath=sse -msse4 -m64 -ansi -D_GNU_SOURCE -fexceptions -fPIC -fno-omit-frame-pointer -pthread' sample_model.c
 
 
 3. choose running parameters 
 
-   define.h --> make numbers larger to see less test
+   	define.h --> make numbers larger to see less test
 
 4. call the code
 
