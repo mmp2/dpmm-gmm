@@ -14,28 +14,29 @@ Authors: Harr Chen harr@gmail.com
 
 Generalities
 ============
-v4/     the Slice-Gibbs and Beta-Gibbs sampler
-exact/  the Exact-Beta-Gibbs sampler
+	v4/     the Slice-Gibbs and Beta-Gibbs sampler
+	exact/  the Exact-Beta-Gibbs sampler
 
 
-Beta-Gibbs 
-	    is fast and exact for top-t rankings where t < n-10,
-	    n being the length of a complete permutation
+Beta-Gibbs
+==========
+is fast and exact for top-t rankings where t < n-10,
+	    n being the length of a complete permutation. For t closer to n, Beta-Gibbs is an approximate sampler
 
-	    for t closer to n, Beta-Gibbs is an approximate sampler
-
-Exact-Beta-Gibbs 
-		 is an exact sampler for the cases when Beta-Gibbs is not,
+Exact-Beta-Gibbs
+================
+is an exact sampler for the cases when Beta-Gibbs is not,
 		 when the parameter t0 is large enough. Experimentally,
 		 we found t0 = 11 to be sufficient.
 		 
-		 It is much slower than Beta-Gibbs, sometimes even slower 
+It is much slower than Beta-Gibbs, sometimes even slower 
 		 than Slice-Gibbs. This is measured per iteration. But mixing
 		 is much better than for Slice-Gibbs, so it should require 
 		 fewer iterations.
 
 Slice-Gibbs    
-	        exact, slower in time per iteration, slower mixing. Not really
+===========
+	exact, slower in time per iteration, slower mixing. Not really
 		recommended in any situation.
 
 		Was introduced as the "straw-man" for the other two.
